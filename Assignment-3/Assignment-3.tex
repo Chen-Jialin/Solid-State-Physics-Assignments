@@ -1,0 +1,487 @@
+% !TEX program = pdflatex
+% !TEX options = -synctex=1 -interaction=nonstopmode -file-line-error "%DOC%"
+% 固体物理第三次作业
+\documentclass[UTF8,10pt,a4paper]{article}
+\usepackage[scheme=plain]{ctex}
+% \catcode`\。=\active
+% \newcommand{。}{．}
+\newcommand{\CourseName}{固体物理}
+\newcommand{\CourseCode}{PHYS1502}
+\newcommand{\Semester}{2019-2020学年第二学期}
+\newcommand{\ProjectName}{第三次作业}
+\newcommand{\DueTimeType}{截止时间}
+\newcommand{\DueTime}{2020. 3. 27（周五）17:00}
+\newcommand{\StudentName}{陈稼霖}
+\newcommand{\StudentID}{45875852}
+\usepackage[vmargin=1in,hmargin=.5in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{calc}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\CourseName}
+\fancyhead[C]{\ProjectName}
+\fancyhead[R]{\StudentName}
+\fancyfoot[R]{\thepage\ / \pageref{LastPage}}
+\setlength\headheight{12pt}
+\fancypagestyle{FirstPageStyle}{
+    \fancyhf{}
+    \fancyhead[L]{\CourseName\\
+        \CourseCode\\
+        \Semester}
+    \fancyhead[C]{{\Huge\bfseries\ProjectName}\\
+        \DueTimeType\ : \DueTime}
+    \fancyhead[R]{姓名 : \makebox[\widthof{\StudentID}][s]{\StudentName}\\
+        学号 : \StudentID\\
+        成绩 : \underline{\makebox[\widthof{\StudentID}]{}}}
+    \fancyfoot[R]{\thepage\ / \pageref{LastPage}}
+    \setlength\headheight{36pt}
+}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\allowdisplaybreaks[4]
+\newtheoremstyle{Problem}
+{}
+{}
+{}
+{}
+{\bfseries}
+{.}
+{ }
+{第\thmnumber{ #2}\thmname{ #1}\thmnote{ (#3)} 得分: \underline{\qquad\qquad}}
+\theoremstyle{Problem}
+\newtheorem{prob}{题}
+\newtheoremstyle{Solution}
+{}
+{}
+{}
+{}
+{\bfseries}
+{:}
+{ }
+{\thmname{#1}}
+\makeatletter
+\def\@endtheorem{\qed\endtrivlist\@endpefalse}
+\makeatother
+\theoremstyle{Solution}
+\newtheorem*{sol}{解}
+\providecommand{\abs}[1]{\left\lvert#1\right\rvert}
+% \usepackage{graphicx}
+\begin{document}
+\thispagestyle{FirstPageStyle}
+\begin{prob}[(4.1) \textbf{Fermi Surface in the Free Electron (Sommerfeld) Theory of Metals}]
+    \begin{enumerate}
+        \item[(a)$\ddagger$] Explain what is meant by the Fermi energy, Fermi temperature and the Fermi surface of a metal.
+        \item[(b)$\ddagger$] Obtain an expression for the Fermi wavevector and the Fermi energy for a gas of electrons (in 3D).
+        \begin{itemize}
+            \item[$\triangleright$] Show that the density of states at the Fermi surface, $dN/dE_F$ can be written as $3N/2E_F$.
+        \end{itemize}
+        \item[(c)] Estimate the value of $E_F$ for sodium [The density of sodium atoms is roughly $1\text{gram}/\text{cm}^3$, and sodium has atomic mass of roughly $23$. You may assume that there is one free electron per sodium atom (sodium has \textit{valence} one)]
+        \item[(d)] Now consider a two-dimensional Fermi gas. Obtain an expression for the density of states at the Fermi surface. 
+    \end{enumerate}
+\end{prob}
+\begin{sol}
+    \begin{enumerate}
+        \item[(a)] \textbf{费米能量$E_F$}: 绝对零度下，系统的化学势.\\
+        \textbf{费米温度$T_F$}: 被定义为
+        \begin{equation}
+            T_F=\frac{E_F}{k_B},
+        \end{equation}
+        其中$k_B$为玻尔兹曼常数. 这意味着只有温度达到与费米温度相当，才会有数量可观的电子被激发.\\
+        \textbf{费米面}: 动量空间中将已被填充的状态和未被填充的状态分隔开的区面.
+        \item[(b)] 假设体积为$V$的三维电子气体中有$N$个电子. 绝对零度下，电子遵从费米-狄拉克分布，在满足泡利不相容原理的前提下，排在尽可能低的能级，故有
+        \begin{equation}
+            N=2\frac{V}{(2\pi)^3}\iiint d\bm{k}=2\frac{V}{(2\pi)^3}4\pi\int_0^{k_F}k^2\,dk=\frac{Vk_F^3}{3\pi^2},
+        \end{equation}
+        从而电子气体的\textbf{费米波矢}为
+        \begin{equation}
+            k_F=\left(\frac{3\pi^2N}{V}\right)^{1/3}=(3\pi^2n)^{1/3},
+        \end{equation}
+        其中$n=\frac{N}{V}$为电子数的体密度.
+        对应地，电子气体的\textbf{费米能量}为
+        \begin{equation}
+            E_F=\frac{(\hbar k_F)^2}{2m}=\frac{\hbar^2(3\pi^2n)^{2/3}}{2m}.
+        \end{equation}
+        \begin{itemize}
+            \item[$\triangleright$]
+            \begin{equation}
+                \frac{dN}{dE_F}=\left(\frac{dE_F}{dN}\right)^{-1}=\left\{\frac{d\left[\frac{\hbar^2\left(3\pi^2\frac{N}{V}\right)^{2/3}}{2m}\right]}{dN}\right\}^{-1}=\left[\frac{\hbar^2\left(3\pi^2\frac{N}{V}\right)^{2/3}}{2m}\frac{2}{3N}\right]^{-1}=\frac{3N}{2E_F}.
+            \end{equation}
+            费米面上的电子态密度为
+            \begin{equation}
+                g(E_F)=\frac{1}{V}\frac{dN}{dE_F}=\frac{3n}{2E_F}.
+            \end{equation}
+        \end{itemize}
+        \item[(c)] 钠的费米能量为
+        \begin{equation}
+            E_F=\frac{\hbar^2\left(3\pi^2\frac{N_A\rho}{M}\right)^{2/3}}{2m}=\frac{\left(\frac{6.63\times 10^{-34}}{2\pi}\right)^2\left(3\pi^2\times\frac{6.02\times 10^{23}\times1\times 10^3}{23\times 10^{-3}}\right)^{2/3}}{2\times 9.11\times 10^{-31}}\text{J}=5.2\times 10^{-19}\text{J}=3.2e\text{V}.
+        \end{equation}
+        \item[(d)] 假设面积为$A$的二维电子气体中有$N$个电子. 绝对零度下，有
+        \begin{equation}
+            N=2\frac{V}{(2\pi)^2}\iiint d\bm{k}=2\frac{V}{(2\pi)^2}2\pi\int_0^{k_F}k\,dk=\frac{Vk_F^2}{2\pi},
+        \end{equation}
+        从而二维电子气体的费米波矢为
+        \begin{equation}
+            k_F=\left(\frac{2\pi N}{V}\right)^{1/2}=(2\pi n)^{1/2},
+        \end{equation}
+        其中$n=\frac{N}{A}$为电子数的面密度.
+        从而二维电子气体的费米能量为
+        \begin{equation}
+            E_F=\frac{(\hbar k_F)^2}{2m}=\frac{\pi\hbar^2n}{m}.
+        \end{equation}
+        费米面上的电子态密度为
+        \begin{equation}
+            \frac{dN}{dE_F}=\left(\frac{dE_F}{dN}\right)^{-1}=\left(\frac{\pi\hbar^2\frac{N}{A}}{m}\right)^{-1}=\left(\frac{\pi\hbar^2\frac{N}{A}}{m}\frac{1}{N}\right)^{-1}=\frac{N}{E_F}.
+        \end{equation}
+    \end{enumerate}
+\end{sol}
+
+\begin{prob}[(4.2) \textbf{Velocities in the Free Electron Theory}]
+    \begin{enumerate}
+        \item[(a)] Assuming that the free electron theory is applicable: show that the speed $v_F$ of an electron at the Fermi surface of a metal is $v_F=\frac{\hbar}{m}(3\pi^2n)^{1/3}$ where $n$ is the density of electrons.
+        \item[(b)] Show that the mean drift speed $v_d$ of an electron in an applied electric field $E$ is $v_d=\abs{\sigma E/(ne)}$, where $\sigma$ is the electric conductivity, and show that $\sigma$ is given in terms of the mean free path $\lambda$ of the electron by $\sigma=\frac{ne^2\lambda}{(mv_F)}$.
+        \item[(c)] Assuming that the free electron theory is applicable to copper:
+        \begin{enumerate}
+            \item[(i)] calculate the values of both $v_d$ and $v_F$ for copper at $300$K in an electric field of $1\text{ V m}^{-1}$ and comment on their relative magnitudes.
+            \item[(ii)] estimate $\lambda$ for copper at $300$K and comment upon its value compared to the mean spacing between the copper atoms.
+        \end{enumerate}
+        You will need the following information: copper is monovalent, meaning there is one free electron per atom. The density of atoms in copper is $n=8.45\times 10^{28}\text{ m}^{-3}$. The conductivity of copper is $\sigma=5.9\times 10^7\Omega^{-1}\text{m}^{-1}$ at $300$K.
+    \end{enumerate}
+\end{prob}
+\begin{sol}
+    \item[(a)] 由于费米温度很高，因此在计算费米面上电子的温度时，一般的温度都可当做接近绝对零度处理. 由前一题，费米波矢为
+    \begin{equation}
+        k_F=(3\pi^2n)^{1/3},
+    \end{equation}
+    则费米面上电子的速率为
+    \begin{equation}
+        v_F=\frac{\hbar}{m}k_F=\frac{\hbar}{m}(3\pi^2n)^{1/3}.
+    \end{equation}
+    \item[(b)] 电流密度与电子的漂流速度间的关系为
+    \begin{equation}
+        \bm{j}=-ne\bm{v}_d.
+    \end{equation}
+    电流密度与外加电场间的关系为
+    \begin{equation}
+        \bm{j}=\sigma\bm{E}.
+    \end{equation}
+    联立上面两式，消去电流密度得电子的漂流速率为
+    \begin{equation}
+        v_d=\abs{\frac{\sigma E}{ne}}
+    \end{equation}
+    假设电子的散射时间为$\tau$. 由Drude理论，
+    \begin{equation}
+        \frac{d\bm{p}}{dt}=-e\bm{E}-\frac{\bm{p}}{\tau}.
+    \end{equation}
+    当电流达到稳定时，
+    \begin{gather}
+        0=\frac{d\bm{p}}{dt}=-e\bm{E}-\frac{\bm{p}}{\tau},\\
+        \Longrightarrow m\bm{v}_d=\bm{p}=-e\bm{E}\tau.
+    \end{gather}
+    电流密度为
+    \begin{equation}
+        \bm{j}=-ne\bm{v}_d=\frac{ne^2\tau\bm{E}}{m}.
+    \end{equation}
+    电导率为
+    \begin{equation}
+        \label{2-conductivity}
+        \sigma=\frac{j}{E}=\frac{ne^2\tau}{m}.
+    \end{equation}
+    由于费米面上电子的热运动速率远大于电子的漂流速率，故电子的平均速率可以近似为$v_f$，散射时间与平均自由程间的关系为
+    \begin{equation}
+        \tau=\frac{\lambda}{v_d}.
+    \end{equation}
+    将上式代入式\ref{2-conductivity}得电导率为
+    \begin{equation}
+        \sigma=\frac{ne^2\lambda}{mv_F}.
+    \end{equation}
+    \item[(c)] 
+    \begin{enumerate}
+        \item[(i)] 铜中电子的漂流速率为
+        \begin{equation}
+            v_d=\abs{\frac{\sigma E}{ne}}=\frac{5.9\times 10^7\times 1}{8.45\times 10^{28}\times 1.60\times 10^{-19}}\text{m}\cdot\text{s}^{-1}=4.4\times 10^{-3}\text{m}\cdot\text{s}^{-1}.
+        \end{equation}
+        铜中费米面上电子的速率为
+        \begin{equation}
+            v_F=\frac{\hbar}{m}(3\pi^2n)^{1/3}=\frac{6.63\times 10^{-34}}{9.11\times 10^{-31}}\times(3\pi^2\times 8.45\times 10^{28})^{1/3}\text{m}\cdot\text{s}^{-1}=1.57\times 10^6\text{m}\cdot\text{s}^{-1}.
+        \end{equation}
+        以上的计算说明，铜中电子的漂流速率远远小于电子的热运动速率.（但是由于电子热运动速度方向各异，平均后相互抵消，因此金属中电流由电子在外加电场下的漂流贡献.）
+        \item[(ii)] 铜中电子的平均自由程为
+        \begin{equation}
+            \lambda=\frac{\sigma mv_F}{ne^2}=\frac{5.9\times 10^7\times 9.11\times 10^{-31}\times 1.57\times 10^6}{8.45\times 10^{28}\times(1.60\times 10^{-19})^2}\text{m}=3.9\times 10^{-8}\text{m}.
+        \end{equation}
+        铜的晶格类型为面心立方，每个晶格中含有$4$个铜原子，每个晶格体积为
+        \begin{equation}
+            V=\frac{4}{n}=\frac{4}{8.45\times 10^{28}}\text{m}^3=4.73\times 10^{-29}\text{m}^3.
+        \end{equation}
+        两个相邻原子间距为
+        \begin{equation}
+            a=\frac{\sqrt[3]{V}}{\sqrt{2}}=2.56\times 10^{-10}\text{m}.
+        \end{equation}
+        以上的计算说明，铜中电子的平均自由程远远大于原子间距，铜中电子不容易发生碰撞.
+    \end{enumerate}
+\end{sol}
+
+\begin{prob}[(4.3) \textbf{Physical Properties of the Free Electron Gas}]
+    In both (a) and (b) you may always assume that the temperature is much less than the Fermi temperature.
+    \begin{enumerate}
+        \item[(a)$\ddagger$] Give a simple but approximate derivation of the Fermi gas prediction for heat capacity of the conduction electron in metal.
+        \item[(b)$\ddagger$] Give a simple (not approximate) derivation of the Fermi gas prediction for magnetic susceptibility of the conduction electron in metals. Here susceptibility is $\chi=dM/dH=\mu_0dM/dB$ at small $H$ and is meant to consider the magnetization of the electron spin only.
+        \item[(c)] How are the result of (a) and (b) different from that of a classical gas of electrons?
+        \begin{itemize}
+            \item[$\triangleright$] What other properties of metals may be different from the classical prediction?
+        \end{itemize}
+        \item[(d)] The experimental specific heat of potassium metal at low temperatures has the form:
+        \begin{equation}
+            C=\gamma T+\alpha T^3
+        \end{equation}
+        where $\gamma=2.08\text{mJ mol}^{-1}\text{K}^{-2}$ and $\alpha=2.6\text{mJ mol}^{-1}\text{K}^{-4}$.
+        \begin{itemize}
+            \item[$\triangleright$] Explain the origin of each of the two terms in this expression.
+            \item[$\triangleright$] Make an estimate of the Fermi energy for potassium metal.
+        \end{itemize}
+    \end{enumerate}
+\end{prob}
+\begin{sol}
+    \begin{enumerate}
+        \item[(a)] 在温度远低于费米温度的假设下，我们认为温度为$T$时能量处于$(E_F,E_F-k_BT)$范围内的电子被激发，这部分电子的数量为$k_BTg(E_F)$，其中$g(E_F)=\frac{3N}{2E_F}$是费米面处的态密度，这些电子中每个电子因为激发增加的能量为$k_BT$，因此相对于绝对零度时体系能量为$Nk_BTg(E_F)\cdot k_BT$. 电子气体的热容为
+        \begin{equation}
+            C=\frac{dE}{dT}=2k_B^2Tg(E_F)=3Nk_B\frac{T}{T_F}.
+        \end{equation}
+        \item[(b)] 电子的磁矩为
+        \begin{equation}
+            \bm{m}=-g\mu_B\bm{\sigma},
+        \end{equation}
+        其中$g=2$为电子的磁旋比，$\mu_B$为玻尔磁子，$\bm{\sigma}$为电子自旋，大小为$\frac{1}{2}$，方向可取与外加磁场同向或反向.
+        当施加磁场$\bm{B}$时，电子磁矩的势能为
+        \begin{equation}
+            E=-\bm{m}\cdot{B}=g\mu_B\bm{\sigma}\cdot\bm{B}.
+        \end{equation}
+        假设体系的费米能量不变，与磁场同向的电子能量相比无磁场时增加$\mu_BB$（相当于态密度曲线右移$\mu_BB$），因此数量减小$\frac{1}{2}\mu_BBg(E_F)$，自旋与磁场反向的电子能量相比无磁场时减小，数量增加$\frac{1}{2}\mu_BBg(E_F)$，因此系统的磁化强度大小为
+        \begin{equation}
+            M=-\frac{1}{2}\mu_BBg(E_F)\cdot(-\mu_B)+\frac{1}{2}\mu_BBg(E_F)\cdot\mu_B=\mu_B^2Bg(E_F).
+        \end{equation}
+        自由电子贡献的磁导率为
+        \begin{equation}
+            \chi=\mu_0\frac{dM}{dB}=\mu_0\mu_B^2g(E_F).
+        \end{equation}
+        \item[(c)] 对于经典电子气体，认为其遵从玻尔兹曼分布，因此可以用能量均分定理来处理热容. 假设电子气体中电子数为$N$，由于每个电子各有$3$个自由度，因此平衡状态下系统的平均能量为
+        \begin{equation}
+            E=\frac{3}{2}k_BNT.
+        \end{equation}
+        电子气体的热容为
+        \begin{equation}
+            C=\frac{dE}{dT}=\frac{3}{2}Nk_B.
+        \end{equation}
+        由于电子在磁场中势能的可能值为$-\mu_BB$和$\mu_BB$，系统的配分函数为
+        \begin{equation}
+            Z_1=e^{\beta\mu_BB}+e^{-\beta\mu_BB}.
+        \end{equation}
+        电子气体的磁化强度为
+        \begin{equation}
+            M=\frac{n}{\beta}\frac{\partial}{\partial B}\ln Z_1=n\mu_B\frac{e^{\beta\mu_BB}-e^{-\beta\mu_BB}}{e^{\beta\mu_BB}+e^{-\beta\mu_BB}}=n\mu_B\tanh\left(\frac{\mu_BB}{kT}\right).
+        \end{equation}
+        其中$n=\frac{N}{V}$为电子气体中电子数密度.
+        弱场极限下，$\frac{\mu_BB}{kT}\ll 1$，$\tanh\frac{\mu_BB}{kT}\approx\frac{\mu_BB}{kT}$，上式近似为
+        \begin{equation}
+            M=\frac{n\mu_B^2}{kT}B.
+        \end{equation}
+        电子气体的磁化率为
+        \begin{equation}
+            \chi=\mu_0\frac{dM}{dB}=\frac{n\mu_0\mu_B^2}{kT}.
+        \end{equation}
+        \begin{itemize}
+            \item[$\triangleright$] 由于用玻尔兹曼分布而非费米-狄拉克分布处理电子气体，电子气体的内能、电子的平均动能等都会有所偏差.
+        \end{itemize}
+        \item[(d)] 
+        \begin{itemize}
+            \item[$\triangleright$] 关于$T$的一次方项为金属中的电子贡献的热容，关于$T$的三次方项为金属中固定在晶格中的原子贡献的热容.
+            \item[$\triangleright$] 电子气体热容的精确值为
+            \begin{equation}
+                C=N_Ak_B\frac{\pi^2}{2}\frac{k_BT}{E_F}=\gamma T.
+            \end{equation}
+            故金属钾的费米能量为
+            \begin{equation}
+                E_F=\frac{\pi^2N_Ak_B^2}{2\gamma}=\frac{\pi^2\times 6.02\times 10^{23}\times 1.38\times 10^{-23}}{2\times 2.08\times 10^{-3}}\text{J}=2.72\times 10^{-19}\text{J}=1.70e\text{V}.
+            \end{equation}
+        \end{itemize}
+    \end{enumerate}
+\end{sol}
+
+\begin{prob}[(4.4) \textbf{Another Review of Free Electron Theory}]
+    \begin{itemize}
+        \item[$\triangleright$] What is the \textit{free electron model} of a meatal.
+        \item[$\triangleright$] Define \textit{Fermi energy} and \textit{Fermi temperature}.
+        \item[$\triangleright$] Why do metals held at room temperature feel cold to the touch even though their Fermi temperature are much higher than room temperature?
+    \end{itemize}
+    \begin{enumerate}
+        \item[(a)] A $d$-dimensional sample with volume $L^d$ contains $N$ electrons and can be described as a free electron model. Show that the Fermi energy is given by
+        \[
+            E_F=\frac{\hbar^2}{2mL^2}(Na_d)^{2/d}
+        \]
+        Find the numerical values of $a_d$ for $d=1,2$, and $3$.
+        \item[(b)] Show also that the density of states at the Fermi energy is given by
+        \[
+            g(E_F)=\frac{Nd}{2L^dE_F}
+        \]
+        \begin{itemize}
+            \item[$\triangleright$] Assuming the free electron model is applicable, estimate the Fermi energy and Fermi temperature of a one-dimensional organic conduct which has unit cell of length $0.8$ nm, where each unit cell contributes one model electron.
+        \end{itemize}
+        \item[(c)] Consider relativistic electrons where $E=c\abs{\bm{p}}$. Calculate the Fermi energy as a function of the density for electrons in $d=1,2,3$ and calculate the density of the states at the Fermi energy in each case.
+    \end{enumerate}
+\end{prob}
+\begin{sol}
+    \begin{itemize}
+        \item[$\triangleright$] \textbf{自由电子理论}：将金属中的价电子视为无相互作用的费米气体处理.
+        \item[$\triangleright$] \textbf{费米能量$E_F$}：绝对零度下，系统的化学势.\\
+        \textbf{费米温度$T_F$}：被定义为
+        \begin{equation}
+            T_F=\frac{E_F}{k_B},
+        \end{equation}
+        其中$k_B$为玻尔兹曼常数.
+        \item[$\triangleright$] 由于电子遵从费米-狄拉克分布，故电子从最低能级开始排布，可以排到很高的能级，对应的费米温度就很高，但费米温度只是对绝对零度下体系化学势的刻画，它并不是实在的温度. 实际上，真正有如此高能量、且能向外界传递热量（同时往低能级跃迁）的电子只是体系中很小一部分，因此触摸金属时有一种冰冷的感觉.
+    \end{itemize}
+    \begin{enumerate}
+        \item[(a)] 假设体积为$L^d$的$d$维自由电子气体中有$N$个电子. 绝对零度下，有
+        \begin{equation}
+            N=2\frac{L^d}{(2\pi)^d}\int d\bm{k}=2\frac{L^d}{(2\pi)^d}a_d'\int_0^{k_F}k^{d-1}\,dk=2\frac{L^d}{(2\pi)^d}\frac{a_d'}{d}k_F^d,
+        \end{equation}
+        其中$a_d'$为与$d$有关的常数
+        \begin{equation}
+            a_d'=\left\{\begin{array}{ll}
+                2,&d=1,\\
+                2\pi,&d=2,\\
+                4\pi,&d=3.
+            \end{array}\right.
+        \end{equation}
+        费米波矢为
+        \begin{equation}
+            \label{4-kF}
+            k_F=\frac{2\pi}{L}\left(\frac{d}{2a_d'}N\right)^{1/d}.
+        \end{equation}
+        费米能量为
+        \begin{equation}
+            E_F=\frac{(\hbar k_d)^2}{2m}=\frac{\hbar^2}{2mL^2}\left[\frac{(2\pi)^dd}{2a_d'}N\right]^{2/d}=\frac{\hbar^2}{2mL^2}(Na_d)^{2/d}.
+        \end{equation}
+        故
+        \begin{equation}
+            a_d=\frac{(2\pi)^dd}{2a_d'}=\left\{\begin{array}{ll}
+                \frac{\pi}{2},&d=1,\\
+                2\pi,&d=2,\\
+                3\pi^2,&d=3.
+            \end{array}\right.
+        \end{equation}
+        \item[(b)] 费米能量处的态密度为
+        \begin{align}
+            \nonumber g(E_F)=&\frac{1}{L^d}\frac{dN}{dE_F}=\frac{1}{L^d}\left(\frac{dE_F}{dN}\right)^{-1}=\frac{1}{L^d}\left\{\frac{d\left[\frac{\hbar^2}{2mL^2}(Na_d)^{2/d}\right]}{dN}\right\}^{-1}=\frac{1}{L^d}\left[\frac{\hbar^2}{2mL^2}(Na_d)^{2/d}\frac{2}{dN}\right]^{-1}\\
+            =&\frac{1}{L^d}\left(\frac{2E_F}{Nd}\right)^{-1}=\frac{Nd}{2L^dE_F}.
+        \end{align}
+        \begin{itemize}
+            \item[$\triangleright$] 对于一维自由电子气体，费米能量为
+            \begin{equation}
+                E_F=\frac{\hbar^2}{2mL^2}\left(N\frac{\pi}{2}\right)^2=\frac{\pi^2\hbar^2n^2}{8m}.
+            \end{equation}
+            将该一维有机导体的电子数密度$n=\frac{N}{L}=\frac{1}{0.8\times 10^{-9}}m^{-1}=1.25\times 10^9m^{-1}$代入上式得到其费米能量为
+            \begin{equation}
+                E_F=\frac{\pi^2\times(6.63\times 10^{-34})^2\times(1.25\times 10^9)^2}{8\times 9.11\times 10^{-31}}J=2.36\times 10^{-20}\text{J}=0.147e\text{V}.
+            \end{equation}
+            费米温度为
+            \begin{equation}
+                T_F=\frac{E_F}{k_B}=1707K.
+            \end{equation}
+        \end{itemize}
+        \item[(c)] 对于相对论效应显著的电子，费米波矢仍为式\eqref{4-kF}，对应的费米能量为
+        \begin{equation}
+            E_F=c\hbar k_F=\left\{\begin{array}{ll}
+                \frac{\pi c\hbar N}{2L},&d=1,\\
+                \frac{(2\pi)^{1/2}c\hbar N^{1/2}}{L},&d=2,\\
+                \frac{(3\pi^2)^{1/3}c\hbar N^{1/3}}{L},&d=3.
+            \end{array}\right.
+        \end{equation}
+        费米能量处的态密度为
+        \begin{equation}
+            g(E_F)=\frac{1}{L^d}\frac{dN}{dE_F}=\left\{\begin{array}{ll}
+                \frac{2}{\pi c\hbar},&d=1,\\
+                \frac{2N^{1/2}}{(2\pi)^{1/2}c\hbar L},&d=2,\\
+                \frac{3N^{2/3}}{(3\pi)^{1/3}c\hbar L^2},&d=3.
+            \end{array}\right.
+        \end{equation}
+    \end{enumerate}
+\end{sol}
+
+\begin{prob}
+    Show that for free electron gas in two dimensions, the chemical potential $\mu$ is independent of the temperature so long as $T\ll\mu$. Hint: first examine the density of states in two dimensions.
+\end{prob}
+\begin{sol}
+    二维电子气体的化学势满足
+    \begin{equation}
+        n=\int_0^{+\infty}dE\,g(E)\frac{1}{e^{E-\mu}+1}.
+    \end{equation}
+    在$k_BT\ll \mu$的条件下，大量的电子在遵循费米-狄拉克分布的前提下，仅占据低能级，因此上面积分的上限可以近似为$\mu$，且二维电子气体的态密度
+    \begin{equation}
+        g(E)=2\frac{1}{A}\frac{A}{(2\pi)^2}\frac{2\pi k(E)dk}{dE}=\frac{2}{(2\pi)^2}\frac{2\pi\frac{\sqrt{2mE}}{\hbar}d\left(\frac{\sqrt{2mE}}{\hbar}\right)}{dE}=\frac{2m}{\pi\hbar^2}.
+    \end{equation}
+    为一常数，故有
+    \begin{align}
+        \nonumber\frac{n}{g}\approx&\int_0^{\mu}dE\,\frac{1}{e^{\beta(E-\mu)}+1}=\int_{-\mu}^0dx\,\frac{1}{e^{\beta x}+1}=\int_{-\mu}^0dx\,\left[1-\frac{1}{\beta}\frac{\beta e^{\beta x}}{e^{\beta x}+1}\right]\\
+        \nonumber=&\left.\left[x-\frac{1}{\beta}\ln(e^{\beta x}+1)\right]\right\rvert_{-\mu}^0=-\frac{\ln 2}{\beta}+\mu+\frac{1}{\beta}\ln(e^{-\beta\mu}+1).
+    \end{align}
+    在$k_BT\ll \mu$的条件下，
+    \begin{equation}
+        \frac{n}{g}\approx\mu.
+    \end{equation}
+    此时，可以认为化学势$\mu$与温度无关.
+\end{sol}
+
+\begin{prob}[(4.7) \textbf{More Thermodynamics of Free Electrons}]
+    \begin{enumerate}
+        \item[(a)] Show that the kinetic energy of a free electron gas in three dimensions is $E=\frac{3}{5}E_FN$.
+        \item[(b)] Calculate the pressure $P=-\partial E/\partial V$, and then the bulk modulus $B=-V\partial P/\partial V$.
+        \item[(c)] Given that the density of atoms in sodium is $2.53\times 10^{22}\text{cm}^{-3}$ and that of potassium is $1.33\times 10^{22}\text{cm}^{-3}$, and given that both of these metals are monovalent (i.e., have one free electron per atom), calculate the bulk modulus associated with the electrons in these materials. Compare your results to the measured values of $6.3$ GPa and $3.1$ Gpa respectively.
+    \end{enumerate}
+\end{prob}
+\begin{sol}
+    \begin{enumerate}
+        \item[(a)] 在远低于费米温度的温度下，三维自由电子气体的态密度为
+        \begin{equation}
+            g(\varepsilon)=2\frac{1}{V}\frac{V}{(2\pi)^3}\frac{4\pi k(\varepsilon)^2dk}{d\varepsilon}=\frac{2}{(2\pi)^3}\frac{4\pi\left(\frac{\sqrt{2m\varepsilon}}{\hbar}\right)^2d\left(\frac{\sqrt{2m\varepsilon}}{\hbar}\right)}{d\varepsilon}=\frac{(2m)^{3/2}\varepsilon^{1/2}}{2\pi^2\hbar^3}.
+        \end{equation}
+        三维自由电子气的粒子数为
+        \begin{equation}
+            N=V\int_0^{E_F}g(\varepsilon)\,d\varepsilon=V\frac{(2m)^{3/2}}{2\pi^2\hbar^3}\frac{2}{3}E_F^{3/2}.
+        \end{equation}
+        三维自由电子气的内能为
+        \begin{equation}
+            E=V\int_0^{E_F}\varepsilon g(\varepsilon)\,d\varepsilon=V\frac{(2m)^{3/2}}{2\pi^2\hbar^3}\frac{2}{5}E_F^{5/2}.
+        \end{equation}
+        上面两式相除得
+        \begin{equation}
+            E=\frac{3}{5}E_FN.
+        \end{equation}
+        \item[(b)] 由于$E_F\sim V^{-2/3}$，故$E\sim V^{-2/3}$，压强为
+        \begin{equation}
+            P=-\frac{\partial E}{\partial V}=\frac{2}{3}\frac{E}{V}=\frac{2NE_F}{5V}.
+        \end{equation}
+        由于$P\sim V^{-5/3}$，故$P\sim V^{-5/3}$，体积弹性模量为
+        \begin{equation}
+            B=-V\frac{\partial P}{\partial V}=\frac{5}{3}P=\frac{2}{3}\frac{NE_F}{V}.
+        \end{equation}
+        \item[(c)] 由第一题(c)，钠的费米能量为
+        \begin{equation}
+            E_{F,\text{Na}}=5.2\times 10^{-19}\text{J}.
+        \end{equation}
+        钠中电子贡献的弹性模量为
+        \begin{equation}
+            B_{\text{Na}}=\frac{2}{3}\times 2.53\times 10^{22}\times 10^6\times 5.2\times 10^{-19}\text{Pa}=8.8\times 10^9\text{Pa}=8.8\text{GPa}.
+        \end{equation}
+        由第三题(d)，钾的费米能量为
+        \begin{equation}
+            E_{F,\text{K}}=2.72\times 10^{-19}\text{J}.
+        \end{equation}
+        钾中电子贡献的弹性模量为
+        \begin{equation}
+            B_{\text{K}}=\frac{2}{3}\times 1.33\times 10^{22}\times 10^6\times 2.72\times 10^{-19}\text{Pa}=2.4\times 10^9\text{Pa}=2.4\text{GPa}.
+        \end{equation}
+        上述计算结果与真实值比较接近.
+    \end{enumerate}
+\end{sol}
+\end{document}

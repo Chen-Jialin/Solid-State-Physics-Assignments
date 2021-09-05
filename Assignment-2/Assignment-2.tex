@@ -1,0 +1,594 @@
+% !TEX program = pdflatex
+% !TEX options = -synctex=1 -interaction=nonstopmode -file-line-error "%DOC%"
+% 固体物理第二次作业
+\documentclass[UTF8,10pt,a4paper]{article}
+\usepackage[scheme=plain]{ctex}
+% \catcode`\。=\active
+% \newcommand{。}{．}
+\newcommand{\CourseName}{固体物理}
+\newcommand{\CourseCode}{PHYS1502}
+\newcommand{\Semester}{2019-2020学年第二学期}
+\newcommand{\ProjectName}{第二次作业}
+\newcommand{\DueTimeType}{截止时间}
+\newcommand{\DueTime}{2020. 3. 20（周五）17:00}
+\newcommand{\StudentName}{陈稼霖}
+\newcommand{\StudentID}{45875852}
+\usepackage[vmargin=1in,hmargin=.5in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{calc}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\CourseName}
+\fancyhead[C]{\ProjectName}
+\fancyhead[R]{\StudentName}
+\fancyfoot[R]{\thepage\ / \pageref{LastPage}}
+\setlength\headheight{12pt}
+\fancypagestyle{FirstPageStyle}{
+    \fancyhf{}
+    \fancyhead[L]{\CourseName\\
+        \CourseCode\\
+        \Semester}
+    \fancyhead[C]{{\Huge\bfseries\ProjectName}\\
+        \DueTimeType\ : \DueTime}
+    \fancyhead[R]{姓名 : \makebox[\widthof{\StudentID}][s]{\StudentName}\\
+        学号 : \StudentID\\
+        成绩 : \underline{\makebox[\widthof{\StudentID}]{}}}
+    \fancyfoot[R]{\thepage\ / \pageref{LastPage}}
+    \setlength\headheight{36pt}
+}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\allowdisplaybreaks[4]
+\newtheoremstyle{Problem}
+{}
+{}
+{}
+{}
+{\bfseries}
+{.}
+{ }
+{第\thmnumber{ #2}\thmname{ #1}\thmnote{ (#3)} 得分: \underline{\qquad\qquad}}
+\theoremstyle{Problem}
+\newtheorem{prob}{题}
+\newtheoremstyle{Solution}
+{}
+{}
+{}
+{}
+{\bfseries}
+{:}
+{ }
+{\thmname{#1}}
+\makeatletter
+\def\@endtheorem{\qed\endtrivlist\@endpefalse}
+\makeatother
+\theoremstyle{Solution}
+\newtheorem*{sol}{解}
+\usepackage{accents}
+\usepackage{booktabs}
+% \usepackage{graphicx}
+\begin{document}
+\thispagestyle{FirstPageStyle}
+\begin{prob}[(2.3) Debye Theory II]
+    Use the Debye approximation to determine the heat capacity of a two-dimensional solid as a function of temperature.
+    \begin{itemize}
+        \item[$\triangleright$] State your assumptions.\\
+        You will need to leave your answer in terms of an integral that one cannot do analytically.
+        \item[$\triangleright$] At high $T$, show the heat capacity goes to a constant and find that constant.
+        \item[$\triangleright$] At low $T$, show that $C_v=KT^n$. Find $n$. Find $K$ interms of a definite integral.\\
+        If you are brave you can try to evaluate the integral, but you will need to leave your result in terms of the Riemann zeta function.
+    \end{itemize}
+\end{prob}
+\begin{sol}
+    \begin{itemize}
+        \item[$\triangleright$] 假设：二维固体中的振动波可量子化为声子. 对于给定的波矢$\bm{k}$有两个振动模式（一个纵模$+$一个横模），且均有线性的色散关系：$\omega=vk$.\\
+        二维固体的内能为所有振动模式的能量之和：
+        \begin{equation}
+            U=2\sum_{\bm{k}}\hbar\omega(\bm{k})\left(n(\omega)+\frac{1}{2}\right).
+        \end{equation}
+        由Born-von Karman边界条件，波矢的可能大小为
+        \begin{equation}
+            k=\frac{2\pi n}{L},
+        \end{equation}
+        即相邻大小的波矢之差为$\delta k=\frac{2\pi}{L}$. 将上面的内能求和式转化为关于波矢的积分
+        \begin{align}
+            \nonumber U=&2\int\hbar\omega(\bm{k})\left(n(\omega)+\frac{1}{2}\right)\frac{d\bm{k}}{(\delta k)^2}\\
+            \nonumber=&2\frac{L^2}{(2\pi)^2}\int\hbar\omega(\bm{k})\left(n(\omega)+\frac{1}{2}\right)\,d\bm{k}\\
+            \nonumber=&2\frac{L^2}{(2\pi)^2}\int_0^{2\pi}d\phi\int_0^{\omega_{\text{cutoff}}}\hbar\omega(\bm{k})\left(n(\omega)+\frac{1}{2}\right)k\,dk\\
+            =&2\frac{L^2}{2\pi}\int_0^{\omega_{\text{cutoff}}}\hbar\omega(\bm{k})\left(n(\omega)+\frac{1}{2}\right)k\,dk,
+        \end{align}
+        其中$\omega_{\text{cutoff}}$是声子频率的上限. 将线性色散关系代入上式，有
+        \begin{align}
+            \nonumber U=&2\frac{L^2}{2\pi}\int_0^{\omega_{\text{cutoff}}}\hbar\omega\left(n(\omega)+\frac{1}{2}\right)\left(\frac{\omega}{v}\right)\,d\left(\frac{\omega}{v}\right)\\
+            \nonumber=&2\frac{L^2\hbar}{2\pi v^2}\int_0^{\omega_{\text{cutoff}}}\omega^2\left(n(\omega)+\frac{1}{2}\right)\,d\omega\\
+            =&\int_0^{\omega_{\text{cutoff}}}g(\omega)\hbar\omega\left(n(\omega)+\frac{1}{2}\right)\,d\omega,
+        \end{align}
+        其中声子的态密度函数为
+        \begin{equation}
+            g(\omega)=\frac{L^2\omega}{\pi v^2}=\frac{N\omega}{\pi nv^2}=N\frac{4\omega}{\omega_d^2},
+        \end{equation}
+        其中$N$为二维固体中的原子数，$n=\frac{N}{L^2}$为二维固体中的原子数密度，二维固体的德拜温度$\omega_d$满足$\omega_d^2=4\pi nv^2$.
+        由于二维固体由$N$个自由度为$2$的原子组成，故有$2N$个振动模式，声子的态密度函数满足
+        \begin{equation}
+            \int_0^{\omega_{\text{cutoff}}}g(\omega)d\omega=\frac{2N\omega_{\text{cutoff}}^2}{\omega_d^2}=2N.
+        \end{equation}
+        故声子的频率上限即为德拜频率
+        \begin{equation}
+            \omega_{\text{cutoff}}=\omega_d.
+        \end{equation}
+        声子的状态服从玻色分布：
+        \begin{equation}
+            n(\omega)=\frac{1}{e^{\beta\hbar\omega}-1}.
+        \end{equation}
+        故二维固体的内能为
+        \begin{equation}
+            U=\frac{4N\hbar}{\omega_d^2}\int_0^{\omega_d}\frac{\omega^2\,d\omega}{e^{\beta\hbar\omega}-1}+U_0,
+        \end{equation}
+        其中$U_0$为温度$T=0$时二维固体的内能，它与$T$无关. 令$x=\beta\hbar\omega$，上式可化为
+        \begin{equation}
+            U=\frac{4N\hbar}{\omega_d^2(\beta\hbar)^3}\int_0^{\beta\hbar\omega_d}\frac{x^2\,dx}{e^x-1}+U_0.
+        \end{equation}
+        二维固体的热容为
+        \begin{equation}
+            \label{1-C}
+            C=\frac{\partial U}{\partial T}=\frac{\partial}{\partial T}\left[\frac{4N\hbar}{\omega_d^2(\beta\hbar)^3}\int_0^{\beta\hbar\omega_d}\frac{x^2\,dx}{e^x-1}\right].
+        \end{equation}
+        \item[$\triangleright$] 在高温极限下，$\beta\rightarrow 0$，故$\frac{1}{e^x-1}=\frac{1}{x}$，从而有
+        \begin{equation}
+            C=\frac{\partial}{\partial T}\left[\frac{4N\hbar}{\omega_d^2(\beta\hbar)^3}\int_0^{\beta\hbar\omega_d}x\,dx\right]=\frac{\partial}{\partial T}\left[\frac{4N\hbar}{\omega_d^2(\beta\hbar)^3}\frac{1}{2}(\beta\hbar\omega_d)^2\right]=\frac{\partial}{\partial T}[2Nk_BT]=2Nk_B.
+        \end{equation}
+        \item[$\triangleright$] 在低温极限下，$\beta\rightarrow+\infty$，故可将式\eqref{1-C}中的积分上限近似为$+\infty$，从而有
+        \begin{align}
+            \nonumber C=&\frac{\partial}{\partial T}\left[\frac{4N\hbar}{\omega_d^2(\beta\hbar)^3}\int_0^{+\infty}\frac{x^2\,dx}{e^x-1}\right]=\frac{\partial}{\partial T}\left[\frac{4Nk_B^3T^3}{\omega_d^2\hbar^2}\int_0^{+\infty}\frac{x^2\,dx}{e^x-1}\right]=12\frac{Nk_B^3T^2}{\omega_d^2\hbar^2}\int_0^{+\infty}\frac{x^2\,dx}{e^x-1}\\
+            =&12Nk_B\left(\frac{T}{T_d}\right)^2\int_0^{+\infty}\frac{x^2\,dx}{e^x-1},
+        \end{align}
+        其中二维固体的德拜温度$T_d=\frac{\hbar\omega_d}{k_B}$. 故
+        \begin{gather}
+            n=2,\\
+            K=\frac{12Nk_B}{T_d^2}\int_0^{+\infty}\frac{x^2\,dx}{e^x-1}=\frac{4Nk_B^2}{\hbar^2\cdot 4\pi nv^2}\int_0^{+\infty}\frac{x^2\,dx}{e^x-1}=\frac{3L^2k_B^3}{\pi\hbar^2v^2}\int_0^{+\infty}\frac{x^2\,dx}{e^x-1}=\frac{3Ak_B^3}{\pi\hbar^2v^2}\int_0^{+\infty}\frac{x^2\,dx}{e^x-1}.
+        \end{gather}
+        因为
+        \begin{equation}
+            \frac{x^2}{e^x-1}=\frac{x^2e^{-x}}{1-e^{-x}}=x^2e^{-x}(1+e^{-x}+e^{-2x}+\cdots)=\sum_{k=1}^{+\infty}x^{n-1}e^{-kx}
+        \end{equation}
+        故积分
+        \begin{equation}
+            \int_0^{+\infty}\frac{x^2\,dx}{e^x-1}=\sum_{k=1}^{\infty}\int_0^{+\infty}x^2e^{-kx}\,dx=\sum_{k=1}^{\infty}\frac{1}{k^3}\int_0^{+\infty}y^{n-1}e^{-y}\,dy=2\sum_{k=1}^{\infty}\frac{1}{k^3}=2\zeta(3).
+        \end{equation}
+        其中$\zeta(s)$为黎曼zeta函数. 故
+        \begin{equation}
+            K=\frac{6Ak_B^2}{\pi\hbar^2v^2}\zeta(3).
+        \end{equation}
+    \end{itemize}
+\end{sol}
+
+\begin{prob}[(2.4) Debye Theory III]
+    Physicists should be good at making educated guesses. Guess the element with the highest Debye temperature. The lowest? You might not guess the ones with the absolutely highest or lowest temperatures, but you should be able to get close.
+\end{prob}
+\begin{sol}
+    固体的德拜温度
+    \begin{equation}
+        T_d=\frac{\sqrt{6\pi^2n}\hbar v}{k_B},
+    \end{equation}
+    其中$n$为固体中原子数密度，$v$为固体中的声速.
+    因为固体中的原子数密度可以表示为
+    \begin{equation}
+        n=\frac{N}{V}=\frac{nN_A}{nM/\rho}=\frac{N_A\rho}{M},
+    \end{equation}
+    其中$N_A$为阿伏伽德罗常数，$\rho$为固体的密度，$M$为固体物质的摩尔质量.
+    在三维均匀固体中纵波与横波的声速分别为\footnote{L. E. Kinsler et al. (2000), Fundamentals of acoustics, 4th Ed., John Wiley and sons Inc., New York, USA.}
+    \begin{gather}
+        v_s=\sqrt{\frac{K+\frac{4}{3}G}{\rho}},\\
+        v_p=\sqrt{\frac{G}{\rho}},
+    \end{gather}
+    其中$K$为固体的体积模量，$G$为固体的剪切模量.
+    故固体的德拜温度与其摩尔质量、体积模量和剪切模量有关：
+    \begin{equation}
+        T_d\propto \left(K+\frac{4}{3}\right)^{1/2}M^{-1/2}\text{ 或 }G^{1/2}\rho^{-1/2}.
+    \end{equation}
+    故猜测德拜温度最高的元素应该是碳（金刚石），因为它十分坚硬且摩尔质量（$12\text{g}\cdot\text{mol}^{-1}$）较小.
+    猜测德拜温度最低的元素应该是铯，因为它是一种十分柔软的金属，而摩尔质量（$133\text{g}\cdot\text{mol}^{-1}$）较大.
+\end{sol}
+
+\begin{prob}[(2.5) Debye Theory IV]
+    From Fig. 2.3 estimate the Debye temperature of diamond. Why does it not quite match the result listed in Table 2.2?
+\end{prob}
+\begin{sol}
+    由图2.3，对于对于低温下的金刚石
+    \begin{equation}
+        \frac{C}{T^3}\approx 2\times 10^{-7}\text{J}\cdot\text{mol}^{-1}\cdot\text{K}^{-4}.
+    \end{equation}
+    从而金刚石的德拜温度
+    \begin{equation}
+        T_d=\sqrt[3]{\frac{12\pi^4k_BT^3}{5C}}\approx 2133K.
+    \end{equation}
+    估算得到的结果与表2.2中的数据并不十分符合，这是因为固体的德拜温度与固体中的声速有关，而声速是随着温度等外界环境条件而改变的，本题中计算金刚石所用的是低温下的数据，而表2.2中的数据是在标准温度和压强下得到的，故两者存在一定偏差.
+\end{sol}
+
+\begin{prob}[(3.1) Drude Theory of Transport in Metals]
+    \begin{enumerate}
+        \item[(a)$\ddagger$] Assume a scattering time $\tau$ and use Drude theory to derive an expression for the conductivity of a metal.
+        \item[(b)] Define the resistivity matrix $\underaccent{\tilde}{\rho}$ as $\bm{E}=\underaccent{\tilde}{\rho}\bm{j}$. Use Drude theory to derive an expression for the matrix $\underaccent{\tilde}{\rho}$ for a metal in a magnetic field. (You may assume $\bm{B}$ parallel to the $\hat{z}$ axis. The under-tilde means that the quantity $\underaccent{\tilde}{\rho}$ is a matrix.) Invert this matrix to obtain an expression for the conductivity matrix $\underaccent{\tilde}{\sigma}$.
+        \item[(c)] Define the Hall coefficient.
+        \begin{itemize}
+            \item[$\triangleright$] Estimate the magnitude of the Hall voltage for a specimen of sodium in the form of a rod of rectangular cross-section $5$mm by $5$mm carrying a current of $1$ A down in its long axis in a magnetic field of $1$T perpendicular to the long axis. The density of sodium atoms is roughly $1$ gram/cm$^3$, and sodium has atomic mass of roughly $23$. You may assume that there is one free electron per sodium atom (sodium has valence $1$).
+            \item[$\triangleright$] What practical difficulties would there be in measuring the Hall voltage and resistivity of such a specimen. How might these difficulties be addressed).
+        \end{itemize}
+        \item[(d)] What properties of metals does Drude theory not explain well?
+        \item[(e)$^*$] Consider now an applied AC field $\bm{E}\sim e^{i\omega t}$ which induces an AC current $\bm{j}\sim e^{i\omega t}$. Modify the above calculation (in the presence of a magnetic field) to obtain an expression for the complex AC conductivity matrix $\underaccent{\tilde}{\sigma}(\omega)$. For simplicity in this case you may assume that the metal is very clean, meaning that $\tau\rightarrow\infty$, and you may assume that $\bm{E}\perp\bm{B}$. You might again find it convenient to assume $\bm{B}$ parallel to the $\hat{z}$ axis. (This exercise might look hard, but if you think about it for a bit, it isn't really much harder then what you did above!)
+        \begin{itemize}
+            \item[$\triangleright$] At what frequency is there a divergence in the conductivity? What does this divergence mean? (When $\tau$ is finite, the divergence is cut off.)
+            \item[$\triangleright$] Explain how could one use this divergence (known as the cyclotron resonance) to measure the mass of the electron. (In fact, in real metals, the measured mass of the electron is generally not equal to the well-known value $m_e=9.1095\times 10^{-31}$kg. This is a result of band structure in metals, which we will explain in Part VI.)
+        \end{itemize}
+    \end{enumerate}
+\end{prob}
+\begin{sol}
+    \begin{enumerate}
+        \item[(a)] 假设：
+        \begin{itemize}
+            \item 电子的散射时间为$\tau$；
+            \item 电子在每次散射后的平均动量变为零；
+            \item 电子在相邻两次散射间受外加电磁场的作用.
+        \end{itemize}
+        若电子在时刻$t$具有动量$\bm{p}$，则电子在$t+dt$时刻有$\frac{dt}{\tau}$的概率因为散射而平均动量变为零，有$\left(1-\frac{dt}{\tau}\right)$的概率被继续加速，故电子在$t+dt$时刻的平均动量为
+        \begin{equation}
+            \bm{p}(t+dt)=\frac{dt}{\tau}\times 0+\left(1-\frac{dt}{\tau}\right)\times(\bm{p}(t)-e\bm{E}\,dt)=\bm{p}(t)-e\bm{E}\,dt-\frac{\bm{p}(t)}{\tau}dt,
+        \end{equation}
+        从而
+        \begin{equation}
+            \label{4-motion-equation}
+            \frac{d\bm{p}}{dt}=-e\bm{E}-\frac{\bm{p}}{\tau}.
+        \end{equation}
+        当金属中电流达到稳定
+        \begin{gather}
+            0=\frac{d\bm{p}}{dt}=-e\bm{E}-\frac{\bm{p}}{\tau},\\
+            \Longrightarrow m\bm{v}=\bm{p}=-e\bm{E}\tau.
+        \end{gather}
+        金属中的电流密度为
+        \begin{equation}
+            \bm{j}=-ne\bm{v}=\frac{ne^2\tau\bm{E}}{m}.
+        \end{equation}
+        金属的电导率为
+        \begin{equation}
+            \sigma=\frac{j}{E}=\frac{ne^2\tau}{m}.
+        \end{equation}
+        \item[(b)] 在磁场下，式\eqref{4-motion-equation}变为
+        \begin{equation}
+            \frac{d\bm{p}}{dt}=-e(\bm{E}+\bm{v}\times\bm{B})-\frac{\bm{p}}{\tau}.
+        \end{equation}
+        当金属中电流达到稳定
+        \begin{gather}
+            0=\frac{d\bm{p}}{dt}=-e(\bm{E}+\bm{v}\times\bm{B})-\frac{m\bm{v}}{\tau},\\
+            \Longrightarrow\bm{E}=-\bm{v}\times\bm{B}-\frac{m\bm{v}}{e\tau}.
+        \end{gather}
+        不失一般性，假设磁场沿$z$轴方向，$\bm{B}=B\hat{z}$，则
+        \begin{equation}
+            \bm{E}=-v_yB\hat{x}+v_xB\hat{y}-\frac{m\bm{v}}{e\tau}.
+        \end{equation}
+        又由
+        \begin{equation}
+            \bm{j}=-ne\bm{v}
+        \end{equation}
+        有
+        \begin{equation}
+            \bm{E}=\frac{j_yB\hat{x}}{ne}-\frac{j_xB\hat{y}}{ne}+\frac{m\bm{j}}{ne^2\tau},
+        \end{equation}
+        即
+        \begin{align}
+            E_x&=&\frac{m}{ne^2\tau}j_x&&\frac{B}{ne}j_y&&+0\cdot j_z,\\
+            E_y&=&-\frac{B}{ne}j_x&&+\frac{m}{ne^2\tau}j_y&&+0\cdot j_z,\\
+            E_z&=&0\cdot j_x&&+0\cdot j_y&&+\frac{m}{ne^2\tau}j_z,
+        \end{align}
+        化为矩阵形式有
+        \begin{equation}
+            \bm{E}=\left(\begin{matrix}
+                \frac{m}{ne^2\tau}&\frac{B}{ne}&0\\
+                -\frac{B}{ne}&\frac{m}{ne^2\tau}&0\\
+                0&0&\frac{m}{ne^2\tau}
+            \end{matrix}\right)\left(\begin{matrix}
+                j_x\\
+                j_y\\
+                j_z
+            \end{matrix}\right).
+        \end{equation}
+        根据电阻率定义式$\bm{E}=\underaccent{\tilde}{\rho}\bm{j}$，电阻率矩阵为
+        \begin{equation}
+            \underaccent{\tilde}{\rho}=\left(\begin{matrix}
+                \frac{m}{ne^2\tau}&\frac{B}{ne}&0\\
+                -\frac{B}{ne}&\frac{m}{ne^2\tau}&0\\
+                0&0&\frac{m}{ne^2\tau}
+            \end{matrix}\right).
+        \end{equation}
+        电阻率矩阵取逆即得电导率矩阵：
+        \begin{equation}
+            \underaccent{\tilde}{\sigma}=\underaccent{\tilde}{\rho}^{-1}=\left(\begin{matrix}
+                \frac{\frac{m}{ne^2\tau}}{\left(\frac{m}{ne^2\tau}\right)^2+\left(\frac{B}{ne}\right)^2}&\frac{-\frac{B}{ne}}{\left(\frac{m}{ne^2\tau}\right)^2+\left(\frac{B}{ne}\right)^2}&0\\
+                \frac{\frac{B}{ne}}{\left(\frac{m}{ne^2\tau}\right)^2+\left(\frac{B}{ne}\right)^2}&\frac{\frac{m}{ne^2\tau}}{\left(\frac{m}{ne^2\tau}\right)^2+\left(\frac{B}{ne}\right)^2}&0\\
+                0&0&\frac{ne^2\tau}{m}
+            \end{matrix}\right).
+        \end{equation}
+        \item[(c)] 霍尔系数被定义为霍尔电阻率（电阻率矩阵的非对角元）与外加磁场大小的比值：
+        \begin{equation}
+            R_H=\frac{\rho_{yx}}{|B|}=\frac{-1}{ne}.
+        \end{equation}
+        \begin{itemize}
+            \item[$\triangleright$] 钠的摩尔质量为$23.0\times 10^{-3}\text{kg}\cdot\text{mol}^{-1}$，密度为$0.968\times 10^3\text{kg}\cdot\text{m}^{-3}$，钠的最外层只有一个电子，故可以认为钠固体中每个钠原子贡献一个自由电子，故钠的电荷
+            \begin{equation}
+                n=\frac{N_AM}{\rho}=\frac{6.02\times 10^{23}\times 0.968\times 10^3}{23.0\times 10^{-3}}\text{m}^{-3}=2.53\times 10^28\text{m}^{-3}.
+            \end{equation}
+            钠的霍尔系数为
+            \begin{equation}
+                R_H=\frac{1}{1.60\times 10^{-19}\times 2.53\times 10^{28}}\text{C}^{-1}\text{m}^3=2.47\times 10^{-10}\text{C}^{-1}\text{m}^3.
+            \end{equation}
+            霍尔电压大小为
+            \begin{equation}
+                U_H=\left\lvert\frac{BIR_H}{d}\right\rvert=\frac{1\times 1\times 2.47\times 10^{-10}}{5\times 10^{-3}}V=4.94\times 10^{-8}V.
+            \end{equation}
+            \item[$\triangleright$] 实际测量中的困难：
+            \begin{itemize}
+                \item 电压过小：采用更加精密的电压表；
+                \item 存在接触电阻：使用尺寸更大的样品，或增加电压表的内阻；
+                \item 电场方向存在偏差，从而导致即使在不施加磁场的情况下也能测得不等于零的电压：完成一次测量后，将磁场反向，再次测量，取两次测得电压大小的平均值.
+            \end{itemize}
+        \end{itemize}
+        \item[(d)] 由于没有考虑到电子遵从费米-狄拉克分布，只有在费米面周围的电子才有可能被激发，所以Drude理论预测的金属的Seeback系数与实验值有近百倍的偏差. 此外：
+        \begin{itemize}
+            \item 由于同样的原因，Drude理论不能解释，为什么同样是每个粒子都有$3$个自由度，但是金属中电子贡献的热容却不如气体那样为$3k_BN$；
+            \item Drude理论无法解释为什么只需要考虑外层电子.
+        \end{itemize}
+        \item[(e)] 设$\bm{E}=E\hat{x}e^{i\omega t}$，$\bm{B}=B\hat{z}$，式\eqref{4-motion-equation}变为
+        \begin{equation}
+            \frac{d\bm{p}}{dt}=-e(E\hat{x}e^{-i\omega t}+\hat{v}\times B\hat{z}),
+        \end{equation}
+        即
+        \begin{align}
+            \label{4-motion-equation-1}\frac{dv_x}{dt}=&-\frac{eE}{m}e^{-i\omega t}-\frac{eB}{m}v_y,\\
+            \label{4-motion-equation-2}\frac{dv_y}{dt}=&\frac{eB}{m}v_x,\\
+            \label{4-motion-equation-3}\frac{dv_z}{dt}=&0.\\
+        \end{align}
+        式\eqref{4-motion-equation-2}关于$t$微分得
+        \begin{equation}
+            \frac{dv_x}{dt}=\frac{m}{B}\frac{d^2v_y}{dt^2}.
+        \end{equation}
+        将上式代入式\eqref{4-motion-equation-1}中得
+        \begin{equation}
+            \frac{d^2v_y}{dt^2}+\frac{e^2EB}{m^2}e^{i\omega t}+\frac{e^2B^2}{m^2}v_y=0.
+        \end{equation}
+        解得
+        \begin{equation}
+            v_y=\frac{e^2EB}{m^2\omega^2-e^2B^2}e^{i\omega t}.
+        \end{equation}
+        回代入式\eqref{4-motion-equation-2}得
+        \begin{equation}
+            v_x=\frac{m}{eB}\frac{dv_y}{dt}=-\frac{i\omega meE}{m^2\omega^2-e^2B^2}e^{i\omega t}.
+        \end{equation}
+        利用$\bm{j}=ne\bm{v}$，上面两式对应的电导率为
+        \begin{align}
+            \sigma_{xx}=&-\frac{i\omega nme^2}{m^2\omega^2-e^2B^2},\\
+            \sigma_{yx}=&\frac{ne^3B}{m^2\omega^2-e^2B^2}.
+        \end{align}
+        若存在沿$y$轴方向的电场，也同理能对$x$轴方向和$y$轴方向的电流密度有贡献，故
+        \begin{align}
+            \sigma_{xy}=&-\frac{ne^3B}{m^2\omega^2-e^2B^2},\\
+            \sigma_{yy}=&-\frac{i\omega nme^2}{m^2\omega^2-e^2B^2}.
+        \end{align}
+        由\eqref{4-motion-equation-3}知在沿$z$轴方向不受磁场影响，故对应的电阻率不变：
+        \begin{align}
+            \sigma_{zx}=&0,\\
+            \sigma_{zy}=&0,\\
+            \sigma_{zz}=&\frac{ne^2\tau}{m}.
+        \end{align}
+        综上，电导率矩阵可表为
+        \begin{equation}
+            \underaccent{\tilde}{\sigma}=\left(\begin{matrix}
+                -\frac{i\omega nme^2}{m^2\omega^2-e^2B^2}&-\frac{ne^3B}{m^2\omega^2-e^2B^2}&0\\
+                \frac{ne^3B}{m^2\omega^2-e^2B^2}&-\frac{i\omega nme^2}{m^2\omega^2-e^2B^2}&0\\
+                0&0&\frac{ne^2\tau}{m}
+            \end{matrix}.\right)
+        \end{equation}
+        \begin{itemize}
+            \item[$\triangleright$] 当$\omega=\pm\frac{eB}{m}$时，电导率发散. 这一发散意味着，电场力和洛伦兹力对电子的驱动同步，电子转速在两者作用下越转越快，（若不考虑相对论效应）可以达到极高的速度，对应着产生极大的电流.
+            \item[$\triangleright$] 在已知磁场$B$的情况下，逐渐改变外加电场的频率$\omega$，当发生cyclotron共振时，金属中电流达到极值，记录此时的频率$\omega$，利用公式
+            \begin{equation}
+                \omega=\frac{eB}{m}
+            \end{equation}
+            可以推出电子的质量$m$.
+        \end{itemize}
+    \end{enumerate}
+\end{sol}
+
+\begin{prob}[(3.2) Scattering Times]
+    The following table electrical resistivities $\rho$, densities $n$, and atomic weights $w$ for the metals silver and lithium:
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{cccc}
+         & $\rho$($\Omega$m) & $n$(g/cm$^3$) & $w$ \\ \hline
+        Ag & $1.59\times 10^{-8}$ & $10.5$ & $107.8$ \\
+        Li & $9.28\times 10^{-8}$ & $0.53$ & $6.94$
+        \end{tabular}
+        \end{table}
+        \begin{itemize}
+            \item[$\triangleright$] Given that both Ag and Li are monovalent (i.e., have one free electron per atom), calculate the Drude scattering times for electrons in these two metals.\\
+            In the kinetic theory of gas, one can estimate the scattering time using the equation
+            \[
+                \tau=\frac{1}{n\langle v\rangle\sigma}
+            \]
+            where $n$ is the gas density, $\langle v\rangle$ is the average velocity (see Eq. 3.4), and $\sigma$ is the cross-section of the gas molecule --- which is roughly $\pi d^2$ with $d$ the molecule diameter. For a nitrogen molecule at room temperature, we can use $d=.37$nm.
+            \item[$\triangleright$] Calculate the scattering time for nitrogen gas at room temperature and compare your result to the Drude scattering times for electrons in Ag and Li metals.
+        \end{itemize}
+\end{prob}
+\begin{sol}
+    \begin{itemize}
+        \item[$\triangleright$] 利用公式
+        \begin{equation}
+            \rho=\sigma^{-1}=\frac{m}{e^2\tau\text{原子数密度}}=\frac{m}{e^2\tau\frac{N_A}{w/n}}.
+        \end{equation}
+        其中$m$为电子质量，$w$为元素摩尔质量.
+        代入表格中数据得银和锂的散射时间
+        \begin{gather}
+            \tau_{\text{Ag}}=3.8\times 10^{-14}s,\\
+            \tau_{\text{Li}}=8.3\times 10^{-15}s.
+        \end{gather}
+        \item[$\triangleright$] 标况下，氮气的分子密度为
+        \begin{equation}
+            n=\frac{N_A}{V_m}=\frac{6.02\times 10^{23}}{22.4\times 10^{-3}}\text{m}^{-3}=2.69\times 10^{25}\text{m}^{-3}.
+        \end{equation}
+        标况下，氮气分子平均速率为
+        \begin{equation}
+            \langle v\rangle=\sqrt{\frac{8k_BT}{\pi m}}=\sqrt{\frac{8\times 1.38\times 10^{23}\times 273}{\pi\times 28.0\times 10^{-3}/6.02\times 10^{23}}}=454\text{m}\cdot\text{s}^{-1}.
+        \end{equation}
+        氮气分子截面为
+        \begin{equation}
+            \sigma=\pi d^2=\pi\times(.37\times10^{-9})^2=4.30\times 10^{-19}\text{m}^2.
+        \end{equation}
+        氮气的散射时间为
+        \begin{equation}
+            \tau=\frac{1}{n\langle v\rangle\sigma}=\frac{1}{2.69\times 10^{25}\times 454\times 4.30\times 10^{-19}}s=1.9\times 10^{-10}s.
+        \end{equation}
+        可见，作为相对于固体更加稀薄的气体，氮气的散射时间远比银和锂的散射时间长.
+    \end{itemize}
+\end{sol}
+
+\begin{prob}[(3.3) Ionic Conduction and Two Carrier Types]
+    In certain materials, particularly at higher temperature, positive ions can move throughout the sample in response to applied electric fields, resulting in what is known as ionic conduction. Since this conduction is typically poor, it is mainly observable in materials where there are no free electrons that would transport current. However, occasionally it can occur that a material has both electrical conduction and ionic conduction of roughly the same magnitude --- such materials are known as mixed ion-electron conductors.\\
+    Suppose free electrons has density $n_e$ and scattering time $\tau_e$ (and have the usual electron mass $m_e$ and charge $-e$). Suppose that the free ions have density $n_i$, scattering time $\tau_i$, mass $m_i$ and charge $+e$. Using Drude theory,
+    \begin{enumerate}
+        \item[(a)] Calculate the electrical resistivity.
+        \item[(b)] Calculate the thermal conductivity.
+        \item[(c)$^*$] Calculate the Hall resistivity.
+    \end{enumerate}
+\end{prob}
+\begin{sol}
+    \begin{enumerate}
+        \item[(a)] 根据Drude理论，对于电子，有
+        \begin{equation}
+            \frac{d\bm{p}_e}{dt}=-e\bm{E}-\frac{\bm{p}_e}{\tau_e}.
+        \end{equation}
+        当电子贡献的电流达到稳定
+        \begin{gather}
+            0=\frac{d\bm{p}_e}{dt}=-e\bm{E}-\frac{\bm{p}_e}{\tau_e},\\
+            \Longrightarrow m_e\bm{v}_e=\bm{p}_e=-e\bm{E}\tau_e.
+        \end{gather}
+        电子贡献的电流密度为
+        \begin{equation}
+            \bm{j}_e=-n_ee\bm{v}_e=\frac{n_ee^2\tau_e\bm{E}}{m_e}.
+        \end{equation}
+        同理，对于离子，有
+        \begin{equation}
+            \frac{d\bm{p}_i}{dt}=e\bm{E}-\frac{\bm{p}}{\tau}.
+        \end{equation}
+        当离子贡献的电流达到稳定
+        \begin{gather}
+            0=\frac{d\bm{p}_i}{dt}=eE-\frac{\bm{p}_i}{\tau_i},\\
+            \Longrightarrow m_i\bm{v}_i=\bm{p}_i=eE\tau_i.
+        \end{gather}
+        离子贡献的电流密度为
+        \begin{equation}
+            \bm{j}_i=ne\bm{v}=\frac{n_ie^2\bm{E}}{m_i}.
+        \end{equation}
+        总电流密度为电子流和离子流贡献之和
+        \begin{equation}
+            \bm{j}=\bm{j}_e+\bm{j}_i=\left(\frac{n_e}{m_e}+\frac{e_i}{m_i}\right)e^2\bm{E}.
+        \end{equation}
+        故电阻率为
+        \begin{equation}
+            \rho=\frac{E}{j}=\frac{1}{e^2\left(\frac{n_e}{m_e}+\frac{n_i}{m_i}\right)}.
+        \end{equation}
+        \item[(b)] 电导率为电阻率之倒数：
+        \begin{equation}
+            \sigma=\rho^{-1}=e^2\left(\frac{n_e}{m_e}+\frac{e_i}{m_i}\right).
+        \end{equation}
+        \item[(c)] 在磁场下，有
+        \begin{gather}
+            \frac{d\bm{p}_e}{dt}=-e(\bm{E}+\bm{v}_e\times\bm{B})-\frac{\bm{p}_e}{\tau_e},\\
+            \frac{d\bm{p}_i}{dt}=e(\bm{E}+\bm{v}_i\times\bm{B})-\frac{\bm{p}_i}{\tau_i}.
+        \end{gather}
+        当电流达到稳定
+        \begin{gather}
+            0=\frac{d\bm{p}_e}{dt}=-e(\bm{E}+\bm{v}_e\times\bm{B})-\frac{m_e\bm{v}_e}{\tau_e}\Longrightarrow\bm{E}=-\bm{v}_e\times\bm{B}-\frac{m_e\bm{v}_e}{e\tau_e},\\
+            0=\frac{d\bm{p}_i}{dt}=e(\bm{E}+\bm{v}_i\times\bm{B})-\frac{m_i\bm{v}_i}{\tau_i}\Longrightarrow\bm{E}=-\bm{v}_i\times\bm{B}+\frac{m_i\bm{v}_i}{e\tau_i}.
+        \end{gather}
+        不失一般性，假设磁场沿$z$轴方向，则
+        \begin{gather}
+            E=-v_{ey}B\hat{x}+v_{ex}B\hat{y}-\frac{m_e\bm{v}_e}{e\tau_e},\\
+            E=-v_{iy}B\hat{x}+v_{ix}B\hat{y}+\frac{m_i\bm{v}_i}{e\tau_i}.
+        \end{gather}
+        又由
+        \begin{gather}
+            \bm{j}_e=-n_ee\bm{v}_e,\\
+            \bm{j}_i=n_ie\bm{v}_i.
+        \end{gather}
+        有
+        \begin{gather}
+            \bm{E}=\frac{j_{ey}B\hat{x}}{n_ee}-\frac{j_{ex}B\hat{y}}{n_ee}+\frac{m_e\bm{j}_e}{n_ee^2\tau_e},\\
+            \bm{E}=-\frac{j_{iy}B\hat{x}}{n_ie}+\frac{j_{ix}B\hat{y}}{n_ie}+\frac{m_i\bm{j}_i}{n_ie^2\tau_i},
+        \end{gather}
+        化为矩阵形式有
+        \begin{align}
+            \bm{E}=&\left(\begin{matrix}
+                \frac{m_e}{n_ee^2\tau_e}&\frac{B}{n_ee}&0\\
+                -\frac{B}{n_ee}&\frac{m_e}{n_ee^2\tau_e}&0\\
+                0&0&\frac{m_e}{n_ee^2\tau_e}
+            \end{matrix}\right)\left(\begin{matrix}
+                j_{ex}\\
+                j_{ey}\\
+                j_{ez}
+            \end{matrix}\right),\\
+            \bm{E}=&\left(\begin{matrix}
+                \frac{m_i}{n_ie^2\tau_i}&-\frac{B}{n_ie}&0\\
+                \frac{B}{n_ie}&\frac{m_i}{n_ie^2\tau_i}&0\\
+                0&0&\frac{m_i}{n_ie^2\tau_i}
+            \end{matrix}\right)\left(\begin{matrix}
+                j_{ix}\\
+                j_{iy}\\
+                j_{iz}
+            \end{matrix}\right).
+        \end{align}
+        电子流和离子流对应的电阻率矩阵分别为
+        \begin{align}
+            \underaccent{\tilde}{\rho}_e=&\left(\begin{matrix}
+                r_e&BR_e&0\\
+                -BR_e&r_e&0\\
+                0&0&r_e
+            \end{matrix}\right),\\
+            \underaccent{\tilde}{\rho}_i=&\left(\begin{matrix}
+                r_i&BR_e&0\\
+                -BR_i&r_i&0\\
+                0&0&r_i
+            \end{matrix}\right).
+        \end{align}
+        其中$r_j=\frac{m_j}{n_jq_j^2\tau_j}$，$R_j=\frac{1}{n_jq_j}$，$j=e,i$.
+        电阻率直接相加是不能得到总电阻率的，但是电导率相加可以得到总电导率.
+        电子流和离子流对应的电导率矩阵分别是对应电阻率矩阵的逆：
+        \begin{align}
+            \underaccent{\tilde}{\sigma}_e=&\underaccent{\tilde}{\rho}_e^{-1}=\left(\begin{matrix}
+                \frac{r_e}{r_e^2+B^2R_e^2}&\frac{-BR_e}{r_e^2+B^2R_e^2}&0\\
+                \frac{BR_e}{r_e^2+B^2R_e^2}&\frac{r_e}{r_e^2+B^2R_e^2}&0\\
+                0&0&\frac{1}{r_e}
+            \end{matrix}\right),\\
+            \underaccent{\tilde}{\sigma}_i=&\underaccent{\tilde}{\rho}_i^{-1}=\left(\begin{matrix}
+                \frac{r_i}{r_i^2+B^2R_i^2}&\frac{-BR_i}{r_i^2+B^2R_i^2}&0\\
+                \frac{BR_i}{r_i^2+B^2R_i^2}&\frac{r_i}{r_i^2+B^2R_i^2}&0\\
+                0&0&\frac{1}{r_i}
+            \end{matrix}\right).
+        \end{align}
+        总电导率为
+        \begin{equation}
+            \underaccent{\tilde}{\sigma}=\underaccent{\tilde}{\sigma}_e+\underaccent{\tilde}{\sigma}_i=\left(\begin{matrix}
+                \frac{r_e(r_i^2+B^2R_i^2)+r_i(r_e^2+B^2R_e^2)}{(r_e^2+B^2R_e^2)(r_i^2+B^2R_i^2)}&-\frac{B[R_e(r_i^2+B^2R_i^2)+R_i(r_e^2+B^2R_e^2)]}{(r_e^2+B^2R_e^2)(r_i^2+B^2R_i^2)}&0\\
+                \frac{B[R_e(r_i^2+B^2R_i^2)+R_i(r_e^2+B^2R_e^2)]}{(r_e^2+B^2R_e^2)(r_i^2+B^2R_i^2)}&\frac{r_e(r_i^2+B^2R_i^2)+r_i(r_e^2+B^2R_e^2)}{(r_e^2+B^2R_e^2)(r_i^2+B^2R_i^2)}&0\\
+                0&0&\frac{r_1+r_2}{r_1r_2}
+            \end{matrix}\right).
+        \end{equation}
+        霍尔电阻率矩阵为
+        \scriptsize\begin{align}
+            \nonumber&\underaccent{\tilde}{\rho}=\underaccent{\tilde}{\sigma}^{-1}\\
+            =&\left(\begin{matrix}
+                \frac{(r_e^2+B^2R_e^2)(r_i^2+B^2R_i^2)[r_e(r_i^2+B^2R_i^2)+r_i(r_e^2+B^2R_e^2)]}{[r_e(r_i^2+B^2R_i^2)+r_i(r_e^2+B^2R_e^2)]^2+B^2[R_e(r_i^2+B^2R_i^2)^2+R_i(r_e^2+B^2R_e^2)]^2}&\frac{B(r_e^2+B^2R_e^2)(r_i^2+B^2R_i^2)[R_e(r_i^2+B^2R_i^2)+R_i(r_e^2+B^2R_e^2)]}{[r_e(r_i^2+B^2R_i^2)+r_i(r_e^2+B^2R_e^2)]^2+B^2[R_e(r_i^2+B^2R_i^2)^2+R_i(r_e^2+B^2R_e^2)]^2}&0\\
+                -\frac{B(r_e^2+B^2R_e^2)(r_i^2+B^2R_i^2)[R_e(r_i^2+B^2R_i^2)+R_i(r_e^2+B^2R_e^2)]}{[r_e(r_i^2+B^2R_i^2)+r_i(r_e^2+B^2R_e^2)]^2+B^2[R_e(r_i^2+B^2R_i^2)^2+R_i(r_e^2+B^2R_e^2)]^2}&\frac{(r_e^2+B^2R_e^2)(r_i^2+B^2R_i^2)[r_e(r_i^2+B^2R_i^2)+r_i(r_e^2+B^2R_e^2)]}{[r_e(r_i^2+B^2R_i^2)+r_i(r_e^2+B^2R_e^2)]^2+B^2[R_e(r_i^2+B^2R_i^2)^2+R_i(r_e^2+B^2R_e^2)]^2}&0\\
+                0&0&\frac{r_1r_2}{r_1+r_2}
+            \end{matrix}\right)
+        \end{align}
+    \end{enumerate}
+\end{sol}
+\end{document}
